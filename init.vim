@@ -1,3 +1,4 @@
+
 " PLUGINS
 call plug#begin()
 Plug 'junegunn/vim-github-dashboard'
@@ -54,7 +55,10 @@ nnoremap <leader>u :Ag <C-R><C-W><CR>
 " VIMRC
 " Source the vimrc after saving it
 if has('autocmd')
-	autocmd bufwritepost init.vim source $MYVIMRC
+    augroup reload_vimrc " {
+        autocmd!
+        autocmd bufwritepost init.vim source $MYVIMRC
+    augroup END "}
 endif
 " open vimrc in a new tab
 nnoremap <leader>v :tabedit $MYVIMRC<CR>
@@ -78,8 +82,9 @@ nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
-" VCS
+" VCS / GIT
 nnoremap <leader>b :Gblame<CR>
 nnoremap <leader>m :Gmove 
+nnoremap <leader>d :Gvdiff<CR>
 
 colorscheme molokai
