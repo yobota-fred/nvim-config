@@ -6,11 +6,17 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-heroku'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-markdown'
 Plug 'airblade/vim-gitgutter'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'w0rp/ale'
 Plug 'tomasr/molokai'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 " BASICS
 " set nocompatible
@@ -32,6 +38,7 @@ set hlsearch
 " Show matching brackets
 set showmatch
 set cursorline
+let g:markdown_fenced_languages = ['html', 'js=javascript', 'json=javascript', 'python', 'sql', 'bash=sh', 'sh']
 
 " INDENTATION
 set tabstop=4
@@ -88,3 +95,6 @@ nnoremap <leader>m :Gmove
 nnoremap <leader>d :Gvdiff<CR>
 
 colorscheme molokai
+let g:airline_theme='molokai'
+let g:airline#extensions#tabline#enabled = 1
+
