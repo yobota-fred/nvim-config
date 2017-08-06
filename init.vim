@@ -1,9 +1,8 @@
 " PLUGINS
 call plug#begin()
 Plug 'junegunn/vim-github-dashboard'
-Plug 'wincent/command-t', {
-    \ 'do': 'cd ruby/command-t/ext/command-t && ruby extconf.rb && make'
-    \ }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'w0rp/ale'
 Plug 'tomasr/molokai'
@@ -40,6 +39,12 @@ set expandtab
 " case-sensitive only if has uppercase
 set ignorecase smartcase
 set incsearch
+let g:fzf_tags_command = 'ag -l | ctags --links=no -L-'
+let g:fzf_layout = { 'window': '-tabnew' }
+" Unsets the "last search pattern" register by hitting return
+nnoremap <CR> :noh<CR><CR>
+nnoremap <leader>f :GFiles<CR>
+nnoremap <leader>t :GFiles<CR>tests/
 
 " VIMRC
 " Source the vimrc after saving it
@@ -52,6 +57,8 @@ nnoremap <leader>v :tabedit $MYVIMRC<CR>
 " COMMANDS
 " ensure dir exists for current buffer
 cnoremap mmm !mkdir -p <c-r>=expand("%:h")<cr>/
+" open files as expected (including URLs)
+let g:netrw_browsex_viewer = 'xdg-open'
 
 " neovim-specific
 let g:python3_host_prog='/home/fred/.virtualenvs/globals/bin/python'
