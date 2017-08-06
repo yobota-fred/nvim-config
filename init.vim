@@ -3,6 +3,9 @@ call plug#begin()
 Plug 'junegunn/vim-github-dashboard'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'airblade/vim-gitgutter'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'w0rp/ale'
 Plug 'tomasr/molokai'
@@ -44,7 +47,9 @@ let g:fzf_layout = { 'window': '-tabnew' }
 " Unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
 nnoremap <leader>f :GFiles<CR>
-nnoremap <leader>t :GFiles<CR>tests/
+nnoremap <leader>t :GFiles<CR>'tests/ \| 'spec/ \| 'unit/ 
+" Find usages of word under cursor
+nnoremap <leader>u :Ag <C-R><C-W><CR>
 
 " VIMRC
 " Source the vimrc after saving it
@@ -72,5 +77,9 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
+
+" VCS
+nnoremap <leader>b :Gblame<CR>
+nnoremap <leader>m :Gmove 
 
 colorscheme molokai
