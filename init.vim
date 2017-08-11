@@ -17,11 +17,14 @@ Plug 'w0rp/ale'
 Plug 'tomasr/molokai'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'davidhalter/jedi-vim'
 call plug#end()
 " BASICS
 " set nocompatible
 filetype on
 set history=10000
+let mapleader = "\<Space>"
+set hidden
 
 " UI
 " middle-click mouse paste
@@ -31,6 +34,8 @@ set termguicolors
 set number relativenumber
 " keep the linting gutter open
 let g:ale_sign_column_always = 1
+" show file in terminal title
+set title
 
 
 " HIGHLIGHTING
@@ -50,7 +55,7 @@ set expandtab
 " case-sensitive only if has uppercase
 set ignorecase smartcase
 set incsearch
-let g:fzf_tags_command = 'ag -l | ctags --links=no -L-'
+let g:fzf_tags_command = 'mktags'
 let g:fzf_layout = { 'window': '-tabnew' }
 " Unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
@@ -58,6 +63,7 @@ nnoremap <leader>f :GFiles<CR>
 nnoremap <leader>t :GFiles<CR>'tests/ \| 'spec/ \| 'unit/ 
 " Find usages of word under cursor
 nnoremap <leader>u :Ag <C-R><C-W><CR>
+nnoremap <leader>g :Tag <CR>
 
 " VIMRC
 " Source the vimrc after saving it
