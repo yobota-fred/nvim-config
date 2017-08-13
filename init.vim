@@ -18,6 +18,10 @@ Plug 'tomasr/molokai'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'davidhalter/jedi-vim'
+Plug 'mattn/emmet-vim'
+Plug 'moll/vim-node'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 call plug#end()
 " BASICS
 " set nocompatible
@@ -25,6 +29,7 @@ filetype on
 set history=10000
 let mapleader = "\<Space>"
 set hidden
+set encoding=utf-8
 
 " UI
 " middle-click mouse paste
@@ -45,11 +50,26 @@ set showmatch
 set cursorline
 let g:markdown_fenced_languages = ['html', 'js=javascript', 'json=javascript', 'python', 'sql', 'bash=sh', 'sh']
 
-" INDENTATION
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
+" LANGUAGE SPECIFIC
+" python
+autocmd FileType python set
+    \ tabstop=4
+    \ shiftwidth=4
+    \ softtabstop=4
+    \ textwidth=119
+    \ expandtab
+    \ autoindent
+    \ fileformat=unix
+
+" JS
+autocmd FileType javascript set
+    \ tabstop=2
+    \ shiftwidth=2
+    \ softtabstop=2
+    \ expandtab
+    \ fileformat=unix
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
 
 " SEARCH
 " case-sensitive only if has uppercase
