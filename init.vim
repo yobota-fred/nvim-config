@@ -22,6 +22,7 @@ Plug 'mattn/emmet-vim'
 Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'lifepillar/pgsql.vim'
 call plug#end()
 " BASICS
 " set nocompatible
@@ -51,6 +52,16 @@ set cursorline
 let g:markdown_fenced_languages = ['html', 'js=javascript', 'json=javascript', 'python', 'sql', 'bash=sh', 'sh']
 
 " LANGUAGE SPECIFIC
+" default
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set fileformat=unix
+
+" misc
+nnoremap <leader>e :e .env<CR>
+
 " python
 autocmd FileType python set
     \ tabstop=4
@@ -71,19 +82,23 @@ autocmd FileType javascript set
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 
+" SQL/postgresql
+let g:sql_type_default = 'pgsql'
+
 " SEARCH
 " case-sensitive only if has uppercase
 set ignorecase smartcase
 set incsearch
 let g:fzf_tags_command = 'mktags'
-let g:fzf_layout = { 'window': '-tabnew' }
+" let g:fzf_layout = { 'window': '-tabnew' }
 " Unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
 nnoremap <leader>f :GFiles<CR>
 nnoremap <leader>t :GFiles<CR>'tests/ \| 'spec/ \| 'unit/ 
 " Find usages of word under cursor
 nnoremap <leader>u :Ag <C-R><C-W><CR>
-nnoremap <leader>g :Tag <CR>
+nnoremap <leader>/ :Tag <CR>
+nnoremap <leader>b :Buffers<CR>
 
 " VIMRC
 " Source the vimrc after saving it
@@ -116,9 +131,9 @@ vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
 " VCS / GIT
-nnoremap <leader>b :Gblame<CR>
-nnoremap <leader>m :Gmove 
-nnoremap <leader>d :Gvdiff<CR>
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gm :Gmove 
+nnoremap <leader>gd :Gvdiff<CR>
 
 colorscheme molokai
 let g:airline_theme='molokai'
