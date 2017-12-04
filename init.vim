@@ -1,12 +1,11 @@
 
-" PLUGINS
+" " PLUGINS
 call plug#begin()
 Plug 'junegunn/vim-github-dashboard'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-heroku'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
@@ -23,7 +22,10 @@ Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'lifepillar/pgsql.vim'
+Plug 'SirVer/UltiSnips'
+Plug 'nvie/vim-flake8'
 call plug#end()
+
 " BASICS
 " set nocompatible
 filetype on
@@ -58,6 +60,12 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 set fileformat=unix
+
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\ 'javascript': ['prettier'],
+\ 'python': ['autopep8', 'remove_trailing_lines']
+\}
 
 " misc
 nnoremap <leader>e :e .env<CR>
@@ -94,7 +102,7 @@ let g:fzf_tags_command = 'mktags'
 " Unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
 nnoremap <leader>f :GFiles<CR>
-nnoremap <leader>t :GFiles<CR>'tests/ \| 'spec/ \| 'unit/ 
+nnoremap <leader>t :GFiles<CR>'tests/ \| 'spec/ \| 'unit/ \| 'spec.js 
 " Find usages of word under cursor
 nnoremap <leader>u :Ag <C-R><C-W><CR>
 nnoremap <leader>/ :Tag <CR>
@@ -113,12 +121,15 @@ nnoremap <leader>v :tabedit $MYVIMRC<CR>
 
 " COMMANDS
 " ensure dir exists for current buffer
-cnoremap mmm !mkdir -p <c-r>=expand("%:h")<cr>/
+nnoremap <leader>m :!mkdir -p <c-r>=expand("%:h")<cr>/<CR>
 " open files as expected (including URLs)
 let g:netrw_browsex_viewer = 'xdg-open'
 
+com! FormatJSON %!python -m json.tool
+nnoremap =j :FormatJSON<CR>
+
 " neovim-specific
-let g:python3_host_prog='/home/fred/.virtualenvs/globals/bin/python'
+" let g:python3_host_prog='/home/fred/.virtualenvs/globals/bin/python'
 
 " SYSTEM INTERACTION
 " copy/paste to/from system clipboard
