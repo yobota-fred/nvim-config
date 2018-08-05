@@ -9,8 +9,10 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-heroku'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'w0rp/ale'
@@ -23,6 +25,9 @@ Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'lifepillar/pgsql.vim'
+Plug 'styled-components/vim-styled-components', { 'branch': 'rewrite' }
+Plug 'leafgarland/typescript-vim'
+Plug 'SirVer/ultisnips'
 call plug#end()
 " BASICS
 " set nocompatible
@@ -43,6 +48,22 @@ let g:ale_sign_column_always = 1
 " show file in terminal title
 set title
 
+
+" LINTING
+let g:ale_fixers = {
+\  'javascript': ['prettier'],
+\  'scss': ['prettier'],
+\  'typescript': ['prettier'],
+\  'css': ['prettier']
+\}
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_use_local_config = 1
+
+" SNIPPETS
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips']
 
 " HIGHLIGHTING
 set hlsearch
@@ -100,6 +121,8 @@ nnoremap <leader>u :Ag <C-R><C-W><CR>
 nnoremap <leader>/ :Tag <CR>
 nnoremap <leader>b :Buffers<CR>
 
+nnoremap <leader>c :Ecomponent 
+
 " VIMRC
 " Source the vimrc after saving it
 if has('autocmd')
@@ -116,6 +139,8 @@ nnoremap <leader>v :tabedit $MYVIMRC<CR>
 cnoremap mmm !mkdir -p <c-r>=expand("%:h")<cr>/
 " open files as expected (including URLs)
 let g:netrw_browsex_viewer = 'xdg-open'
+
+let g:user_emmet_expandabbr_key = '<C-e>'
 
 " neovim-specific
 let g:python3_host_prog='/home/fred/.virtualenvs/globals/bin/python'
@@ -134,6 +159,9 @@ vnoremap <leader>P "+P
 nnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gm :Gmove 
 nnoremap <leader>gd :Gvdiff<CR>
+
+" Avoid problems with file watchers - see https://github.com/webpack/webpack/issues/781#issuecomment-95523711
+set backupcopy=yes
 
 colorscheme molokai
 let g:airline_theme='molokai'
