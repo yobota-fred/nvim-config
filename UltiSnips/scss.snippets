@@ -1,0 +1,15 @@
+global !p
+def component():
+	  spl = path.split('/')
+	  return spl[-2] if spl[-1].startswith("styles") else spl[-1]
+
+def kebab_case(camel):
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1-\2', camel)
+    return re.sub('([a-z0-9])([A-Z])', r'\1-\2', s1).lower()
+endglobal
+
+snippet cpt
+.${1:`!p snip.rv = kebab_case(component())`} {
+	$0
+}
+endsnippet

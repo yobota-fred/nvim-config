@@ -1,3 +1,13 @@
+global !p
+def component():
+	spl = path.split('/')
+	snip.rv = spl[-2] if spl[-1].startswith("index") else spl[-1]
+
+def story_component():
+	spl = path.split('/')
+	snip.rv = spl[-2] if spl[-1].startswith("stories") else spl[-1]
+endglobal
+
 snippet ireact
 import * as React from 'react'
 endsnippet
@@ -7,12 +17,23 @@ import * as React from "react";
 import "./styles.scss";
 
 interface Props {
-$1
+	$1
 }
 
-const Hello = (props: Props) => (
-<${2:div}>$0</$2>
+const `!p component()` = ({$2}: Props) => (
+	<${3:div}$4>$0</$3>
 );
 
-export default Hello;
+export default `!p component()`;
+endsnippet
+
+snippet story
+import { storiesOf } from "@storybook/react";
+import * as React from "react";
+
+import `!p story_component()` from ".";
+
+storiesOf("${1:Components}/`!p story_component()`", module).add("${2:default}", () => (
+	<`!p story_component()`$3>$0</`!p story_component()`>
+));
 endsnippet

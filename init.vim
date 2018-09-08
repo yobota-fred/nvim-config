@@ -77,7 +77,7 @@ let g:ale_echo_msg_format = '%linter% says %s'
 " let g:UltiSnipsJumpForwardTrigger = "<tab>"
 " let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " if has('nvim')
-let g:UltiSnipsSnippetDirectories = ['~/UltiSnips']
+" let g:UltiSnipsSnippetDirectories = ['~/UltiSnips']
 " endif
 let g:UltiSnipsEditSplit = 'context'
 
