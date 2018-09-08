@@ -20,14 +20,19 @@ Plug 'tomasr/molokai'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'davidhalter/jedi-vim'
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'lifepillar/pgsql.vim'
-Plug 'styled-components/vim-styled-components', { 'branch': 'rewrite' }
+" Plug 'styled-components/vim-styled-components', { 'branch': 'rewrite' }
 Plug 'leafgarland/typescript-vim'
-Plug 'SirVer/ultisnips'
+Plug 'flowtype/vim-flow'
+" Plug 'SirVer/ultisnips'
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'Shougo/neosnippet.vim'
+" Plug 'carlitux/deoplete-ternjs', { 'do': 'yarn global add tern' }
+Plug 'autozimu/LanguageClient-neovim', { 'do': 'yarn global add javascript-typescript-langserver' }
 call plug#end()
 " BASICS
 " set nocompatible
@@ -54,16 +59,22 @@ let g:ale_fixers = {
 \  'javascript': ['prettier'],
 \  'scss': ['prettier'],
 \  'typescript': ['prettier'],
-\  'css': ['prettier']
+\  'css': ['prettier'],
+\  'json': ['prettier']
+\}
+let g:ale_linters = {
+\  'javascript': ['flow']
 \}
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_echo_msg_format = '%linter% says %s'
 
 " SNIPPETS
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips']
+" let g:UltiSnipsExpandTrigger = "<tab>"
+" let g:UltiSnipsJumpForwardTrigger = "<tab>"
+" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips']
+" let g:UltiSnipsExpandTrigger="<c-4>" 
 
 " HIGHLIGHTING
 set hlsearch
@@ -105,6 +116,24 @@ let g:javascript_plugin_flow = 1
 
 " SQL/postgresql
 let g:sql_type_default = 'pgsql'
+
+" LSP
+" https://fortes.com/2017/language-server-neovim/
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {
+      \ 'javascript': ['javascript-typescript-stdio'],
+      \ 'javascript.jsx': ['javascript-typescript-stdio'],
+      \ 'typescript': ['javascript-typescript-stdio'],
+      \ 'python': ['pyls'],
+      \ }
+autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
+if !executable('javascript-typescript-stdio')
+  echo "javascript-typescript-stdio not installed!\n"
+endif
+nnoremap <leader>ld :call LanguageClient_textDocument_definition()<cr>
+nnoremap <leader>lh :call LanguageClient_textDocument_hover()<cr>
+nnoremap <leader>lr :call LanguageClient_textDocument_rename()<cr>
+nnoremap <leader>lf :call LanguageClient_textDocument_documentSymbol()<cr>
 
 " SEARCH
 " case-sensitive only if has uppercase
