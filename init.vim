@@ -58,12 +58,14 @@ set title
 let g:ale_fixers = {
 \  'javascript': ['prettier'],
 \  'scss': ['prettier'],
-\  'typescript': ['prettier'],
+\  'typescript': ['prettier', 'tslint'],
 \  'css': ['prettier'],
 \  'json': ['prettier']
 \}
 let g:ale_linters = {
-\  'javascript': ['flow']
+\  'javascript': ['flow'],
+\  'python': ['pyls'],
+\  'typescript': ['tslint', 'tsserver']
 \}
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
@@ -118,6 +120,7 @@ let g:javascript_plugin_flow = 1
 let g:sql_type_default = 'pgsql'
 
 " LSP
+let g:ale_completion_enabled = 1
 " https://fortes.com/2017/language-server-neovim/
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
@@ -126,14 +129,21 @@ let g:LanguageClient_serverCommands = {
       \ 'typescript': ['javascript-typescript-stdio'],
       \ 'python': ['pyls'],
       \ }
-autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
-if !executable('javascript-typescript-stdio')
-  echo "javascript-typescript-stdio not installed!\n"
-endif
-nnoremap <leader>ld :call LanguageClient_textDocument_definition()<cr>
-nnoremap <leader>lh :call LanguageClient_textDocument_hover()<cr>
+" autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
+" autocmd FileType typescript setlocal omnifunc=LanguageClient#complete
+" autocmd FileType python setlocal omnifunc=LanguageClient#complete
+" if !executable('javascript-typescript-stdio')
+"   echo "javascript-typescript-stdio not installed!\n"
+" endif
+" nnoremap <leader>ld :call LanguageClient_textDocument_definition()<cr>
+" nnoremap <leader>lh :call LanguageClient_textDocument_hover()<cr>
 nnoremap <leader>lr :call LanguageClient_textDocument_rename()<cr>
 nnoremap <leader>lf :call LanguageClient_textDocument_documentSymbol()<cr>
+" set completeopt+=longest
+" ale-completion-completopt-bug - https://github.com/w0rp/ale/issues/1700
+set completeopt=menu,menuone,preview,noinsert
+nnoremap <leader>h :ALEHover<cr>
+nnoremap <leader>d :ALEGoToDefinition<cr>
 
 " SEARCH
 " case-sensitive only if has uppercase
