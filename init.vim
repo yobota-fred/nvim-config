@@ -28,7 +28,7 @@ Plug 'lifepillar/pgsql.vim'
 " Plug 'styled-components/vim-styled-components', { 'branch': 'rewrite' }
 Plug 'leafgarland/typescript-vim'
 Plug 'flowtype/vim-flow'
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 " Plug 'Shougo/deoplete.nvim'
 " Plug 'Shougo/neosnippet.vim'
 " Plug 'carlitux/deoplete-ternjs', { 'do': 'yarn global add tern' }
@@ -52,6 +52,7 @@ set number relativenumber
 let g:ale_sign_column_always = 1
 " show file in terminal title
 set title
+set splitright
 
 
 " LINTING
@@ -75,8 +76,10 @@ let g:ale_echo_msg_format = '%linter% says %s'
 " let g:UltiSnipsExpandTrigger = "<tab>"
 " let g:UltiSnipsJumpForwardTrigger = "<tab>"
 " let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-" let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips']
-" let g:UltiSnipsExpandTrigger="<c-4>" 
+" if has('nvim')
+let g:UltiSnipsSnippetDirectories = ['~/UltiSnips']
+" endif
+let g:UltiSnipsEditSplit = 'context'
 
 " HIGHLIGHTING
 set hlsearch

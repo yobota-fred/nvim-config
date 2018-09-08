@@ -1,0 +1,18 @@
+snippet ireact
+import * as React from 'react'
+endsnippet
+
+snippet fsc
+import * as React from "react";
+import "./styles.scss";
+
+interface Props {
+$1
+}
+
+const Hello = (props: Props) => (
+<${2:div}>$0</$2>
+);
+
+export default Hello;
+endsnippet
