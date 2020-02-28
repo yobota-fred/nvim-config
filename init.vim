@@ -10,6 +10,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'w0rp/ale'
@@ -33,6 +34,7 @@ set history=10000
 let mapleader = "\<Space>"
 set hidden
 set encoding=utf-8
+set noswapfile
 
 " UI
 " middle-click mouse paste
@@ -64,7 +66,12 @@ set fileformat=unix
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \ 'javascript': ['prettier'],
-\ 'python': ['autopep8', 'remove_trailing_lines']
+\ 'python': ['autopep8', 'remove_trailing_lines', 'isort', 'black'],
+\ 'scss': ['prettier', 'trim_whitespace', 'remove_trailing_lines']
+\}
+let g:ale_echo_msg_format = '%linter% says %code: %%s'
+let g:ale_linters = {
+\ 'javascript': ['eslint', 'fecs', 'flow', 'flow-language-server', 'jscs', 'jshint', 'standard', 'xo']
 \}
 
 " misc
@@ -122,6 +129,8 @@ nnoremap <leader>v :tabedit $MYVIMRC<CR>
 " COMMANDS
 " ensure dir exists for current buffer
 nnoremap <leader>m :!mkdir -p <c-r>=expand("%:h")<cr>/<CR>
+nnoremap <leader>x :!chmod +x %<CR>
+nnoremap <leader>w :!xdg-open %<CR>
 " open files as expected (including URLs)
 let g:netrw_browsex_viewer = 'xdg-open'
 
@@ -143,6 +152,7 @@ vnoremap <leader>P "+P
 
 " VCS / GIT
 nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gw :Gbrowse<CR>
 nnoremap <leader>gm :Gmove 
 nnoremap <leader>gd :Gvdiff<CR>
 
